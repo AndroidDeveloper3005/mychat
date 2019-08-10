@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		package="com.androiddeveloper3005.mychat"
+		>
+	
+	<uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.SEND_SMS"/>
+	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.INTERNET"/> <!-- To auto-complete the details_student text field in the login form with the user's emails -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+	<uses-permission android:name="android.permission.READ_PROFILE"/>
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	
+	<application
+			android:allowBackup="true"
+			android:icon="@mipmap/ic_launcher"
+			android:label="@string/app_name"
+			android:roundIcon="@mipmap/ic_launcher_round"
+			android:supportsRtl="true"
+			android:theme="@style/AppTheme"
+			>
+		<activity android:name=".activity.BaseActivity">
+		</activity>
+		<activity android:name=".activity.ProfileActivity">
+		</activity>
+		<activity
+				android:name=".activity.AllUserActivity"
+				android:parentActivityName=".activity.MainActivity"
+				>
+		</activity>
+		<activity android:name=".activity.SettingActivity">
+		</activity>
+		<activity
+				android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+				android:theme="@style/Base.Theme.AppCompat"
+				/>
+		<activity android:name=".activity.RegistrationActivity">
+		</activity>
+		<activity android:name=".activity.MainActivity">
+		</activity>
+		<activity android:name=".activity.LoginActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+	</application>
+
+</manifest>

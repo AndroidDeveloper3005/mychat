@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:cardCornerRadius="10dp"
+		app:cardElevation="2dp"
+		android:layout_margin="@dimen/layout_margin_5dp">
+	
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			>
+		<EditText
+				android:layout_margin="@dimen/layout_margin_5dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textPersonName"
+				android:hint="Status"
+				android:gravity="center"
+				android:ems="10"
+				android:id="@+id/status_etx"
+				android:layout_gravity="center"
+				/>
+		
+		<Button
+				android:layout_margin="@dimen/layout_margin_5dp"
+				android:layout_gravity="center"
+				android:text="Button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/change_btn"
+				/>
+	</LinearLayout>
+
+	
+
+</androidx.cardview.widget.CardView>

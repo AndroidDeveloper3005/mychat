@@ -1,0 +1,16 @@
+<resources>
+	<string name="app_name">Chat Me</string>
+	<string name="email_hint">Email</string>
+	<string name="password_hint">Password</string>
+	<string name="forgot_password">Forgot your password?</string>
+	<string name="reset_password">Reset Password</string>
+	<string name="registration_text">Don\'t have an Account</string>
+	<string name="have_an_account_text">Already have an Account? Login</string>
+	<string name="name_hint">Name</string>
+	<string name="phone_hint">Phone</string>
+	
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="default_status">status</string>
+	<string name="empty_result">No data!</string>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "476768395996",
+    "firebase_url": "https://chatme-8b035.firebaseio.com",
+    "project_id": "chatme-8b035",
+    "storage_bucket": "chatme-8b035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476768395996:android:f9c4ca3e764aa96e",
+        "android_client_info": {
+          "package_name": "com.androiddeveloper3005.mychat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476768395996-a17phum0el74ovp17r9tj84jhnepdnen.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androiddeveloper3005.mychat",
+            "certificate_hash": "286781702a176f75471c98b60ed282338b61700c"
+          }
+        },
+        {
+          "client_id": "476768395996-3t14udv0eke6ab6lpen34h96ti1gh592.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsRk4wda_68cmYmrDPVVKVdH2UNBCYGtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476768395996-3t14udv0eke6ab6lpen34h96ti1gh592.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
