@@ -69,6 +69,7 @@ class AllUserActivity : AppCompatActivity() {
                     uid = data.child(Constans.UID).getValue().toString()
                     users = Users(name,status,imageuri,uid)
                     if (!uid.equals(mAuth.currentUser!!.uid)){
+                        list.clear()
                         list.add(users)
 
                     }

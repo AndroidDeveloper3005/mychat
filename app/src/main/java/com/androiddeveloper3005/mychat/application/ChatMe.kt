@@ -23,8 +23,7 @@ class ChatMe: Application() {
         mAuth = FirebaseAuth.getInstance()
         if (mAuth.getCurrentUser() != null)
         {
-            mUserDatabase = FirebaseDatabase.getInstance()
-                .getReference().child("Users").child(mAuth.getCurrentUser()!!.getUid())
+            mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser()!!.getUid())
             mUserDatabase.addValueEventListener(object: ValueEventListener {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot != null)

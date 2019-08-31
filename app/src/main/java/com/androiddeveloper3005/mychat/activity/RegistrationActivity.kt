@@ -1,7 +1,6 @@
 package com.androiddeveloper3005.mychat.activity
 
 import android.Manifest
-import android.app.Instrumentation
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +12,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.androiddeveloper3005.mychat.R
 import com.androiddeveloper3005.mychat.appconstants.Constans
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -81,7 +79,7 @@ class RegistrationActivity : AppCompatActivity() , View.OnClickListener {
         password_etx = findViewById(R.id.password_edit_text)
         registration_btn = findViewById(R.id.registration_btn)
         have_account_txt  = findViewById(R.id.login_txt)
-        user_image = findViewById(R.id.profile_image)
+        user_image = findViewById(R.id.message_profile_layout)
         progressBar = findViewById(R.id.progressBar)
 
         //onclick
@@ -172,7 +170,7 @@ class RegistrationActivity : AppCompatActivity() , View.OnClickListener {
             mImageUri = data.data
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, mImageUri)
-                profile_image.setImageBitmap(bitmap)
+                message_profile_layout.setImageBitmap(bitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }

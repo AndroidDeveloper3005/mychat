@@ -31,8 +31,7 @@
 			android:layout_alignParentEnd="true"
 			android:layout_alignParentRight="true"
 			/>
-	<include layout="@layout/view_common_loader"
-			/>
+	<include layout="@layout/view_common_loader"/>
 	
 	
 

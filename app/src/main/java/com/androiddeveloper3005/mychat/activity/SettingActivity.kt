@@ -30,7 +30,6 @@ import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
 import id.zelory.compressor.Compressor
-import kotlinx.android.synthetic.main.activity_registration.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -58,6 +57,8 @@ class SettingActivity : AppCompatActivity() ,View.OnClickListener{
     private lateinit var downloadUri  : String
     private lateinit var uid : String
     private lateinit var change_image : CircleImageView
+    private lateinit var mUsersDatabase: DatabaseReference
+
 
 
 
@@ -76,7 +77,7 @@ class SettingActivity : AppCompatActivity() ,View.OnClickListener{
         status_txt = findViewById(R.id.status_txt)
         change_image_btn = findViewById(R.id.change_image_btn)
         change_status_btn = findViewById(R.id.change_status_btn)
-        image = findViewById(R.id.profile_image)
+        image = findViewById(R.id.message_profile_layout)
 
         //listener
         change_status_btn.setOnClickListener(this)
@@ -97,6 +98,9 @@ class SettingActivity : AppCompatActivity() ,View.OnClickListener{
         //firebase
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser!!.uid.toString()
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child(Constans.USER_DATABSE_PATH)
+            .child(auth.currentUser!!.uid)
+
         databaseRef = FirebaseDatabase.getInstance().getReference().child(Constans.USER_DATABSE_PATH).child(uid)
         val listenner = object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
@@ -120,6 +124,32 @@ class SettingActivity : AppCompatActivity() ,View.OnClickListener{
 
         databaseRef.addValueEventListener(listenner)
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mUsersDatabase.child("online").setValue("true")
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val currentUser = auth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mUsersDatabase.child("online").setValue(ServerValue.TIMESTAMP)
+        }
+    }
+
+
+
+
+
 
     override fun onClick(view: View?) {
         if (view == change_image_btn){

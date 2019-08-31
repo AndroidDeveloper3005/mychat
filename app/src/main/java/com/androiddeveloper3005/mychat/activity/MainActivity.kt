@@ -9,8 +9,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.androiddeveloper3005.mychat.R
 import com.androiddeveloper3005.mychat.adapter.SectionsPagerAdapter
+import com.androiddeveloper3005.mychat.appconstants.Constans
+import com.androiddeveloper3005.mychat.service.MyService
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
     private lateinit var toolbar: Toolbar
     private lateinit var auth : FirebaseAuth
+    private lateinit var mUsersDatabase: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +43,42 @@ class MainActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.main_tabs)
         tabLayout.setupWithViewPager(mViewPager)
         auth = FirebaseAuth.getInstance()
+        var deviceToken = FirebaseInstanceId.getInstance().token
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child(Constans.USER_DATABSE_PATH).child(auth.currentUser!!.uid)
+        mUsersDatabase.child(Constans.DEVICETOKEN).setValue(deviceToken).addOnSuccessListener {
 
+        }
+        startService(Intent(applicationContext,MyService::class.java))
 
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        var deviceToken = FirebaseInstanceId.getInstance().token
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child(Constans.USER_DATABSE_PATH).child(auth.currentUser!!.uid)
+        mUsersDatabase.child(Constans.DEVICETOKEN).setValue(deviceToken).addOnSuccessListener {
+
+        }
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mUsersDatabase.child("online").setValue("true")
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val currentUser = auth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mUsersDatabase.child("online").setValue(ServerValue.TIMESTAMP)
+        }
+    }
+    
 
    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)

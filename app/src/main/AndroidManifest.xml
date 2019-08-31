@@ -27,9 +27,36 @@
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme"
 			>
+		<service
+				android:name=".service.MyService"
+				android:enabled="true"
+				android:exported="true"
+				>
+		</service>
+		
+		<activity
+				android:name=".activity.ChatActivity"
+				android:parentActivityName=".activity.MainActivity"
+				>
+		</activity>
+		
+		<service android:name=".cloudMessagingService.FirebaseMessagingService">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT"/>
+			</intent-filter>
+		</service>
+		
 		<activity android:name=".activity.BaseActivity">
 		</activity>
-		<activity android:name=".activity.ProfileActivity">
+		<activity
+				android:name=".activity.ProfileActivity"
+				android:parentActivityName=".activity.MainActivity"
+				>
+			<intent-filter>
+				<action android:name="com.androiddeveloper3005.mychat_TARGET_NOTIFICATION"/>
+				
+				<category android:name="android.intent.category.DEFAULT"/>
+			</intent-filter>
 		</activity>
 		<activity
 				android:name=".activity.AllUserActivity"

@@ -38,12 +38,16 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var mCurrent_user: FirebaseUser
     private lateinit var mCurrent_state:String
     private lateinit var user_id:String
+    private lateinit var mAuth: FirebaseAuth
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         var intent = intent
         user_id = intent.getStringExtra("user_id")
+        mAuth = FirebaseAuth.getInstance()
         mRootRef = FirebaseDatabase.getInstance().getReference()
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child(Constans.USER_DATABSE_PATH).child(user_id)
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child(Constans.FRIEND_REQ)
@@ -57,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
         mNotificationDatabase.keepSynced(true)
 
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser()!!
-        mProfileImage = findViewById(R.id.profile_image) as ImageView
+        mProfileImage = findViewById(R.id.message_profile_layout) as ImageView
         mProfileName = findViewById(R.id.profile_displayName) as TextView
         mProfileStatus = findViewById(R.id.profile_status) as TextView
         mProfileFriendsCount = findViewById(R.id.profile_totalFriends) as TextView
@@ -195,33 +199,8 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             // ------------ REQ RECEIVED STATE ----------
+
             if (mCurrent_state.equals("req_received"))
-            {
-                val currentDate = DateFormat.getDateTimeInstance().format(Date())
-                val friendsMap = HashMap<String,Any?>()
-                friendsMap.put("Friends/" + mCurrent_user.getUid() + "/" + user_id + "/date", currentDate)
-                friendsMap.put("Friends/" + user_id + "/" + mCurrent_user.getUid() + "/date", currentDate)
-                friendsMap.put("Friend_req/" + mCurrent_user.getUid() + "/" + user_id, null)
-                friendsMap.put("Friend_req/" + user_id + "/" + mCurrent_user.getUid(), null)
-                mRootRef.updateChildren(friendsMap, object:DatabaseReference.CompletionListener {
-                    override fun onComplete(databaseError:DatabaseError, databaseReference:DatabaseReference) {
-                        if (databaseError == null)
-                        {
-                            mProfileSendReqBtn.setEnabled(true)
-                            mCurrent_state = "friends"
-                            mProfileSendReqBtn.setText("Unfriend this Person")
-                            mDeclineBtn.setVisibility(View.INVISIBLE)
-                            mDeclineBtn.setEnabled(false)
-                        }
-                        else
-                        {
-                            val error = databaseError.getMessage()
-                            Toast.makeText(this@ProfileActivity, error, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-            }
-/*            if (mCurrent_state.equals("req_received"))
             {
                 val currentDate = DateFormat.getDateTimeInstance().format(Date())
                 val friendsMap = HashMap<String,String>()
@@ -247,15 +226,15 @@ class ProfileActivity : AppCompatActivity() {
                     }
                 }
 
-            }*/
+            }
 
             // ------------ UNFRIENDS ---------
 
             if (mCurrent_state.equals("friends"))
             {
                 val unfriendMap = HashMap<String,Any?>()
-                unfriendMap.put("Friends/" + mCurrent_user.getUid() + "/" + user_id, null)
-                unfriendMap.put("Friends/" + user_id + "/" + mCurrent_user.getUid(), null)
+                unfriendMap.put("friends/" + mCurrent_user.getUid() + "/" + user_id, null)
+                unfriendMap.put("friends/" + user_id + "/" + mCurrent_user.getUid(), null)
                 mRootRef.updateChildren(unfriendMap, object: DatabaseReference.CompletionListener {
                     override fun onComplete(databaseError:DatabaseError, databaseReference:DatabaseReference) {
                         if (databaseError == null)
@@ -279,6 +258,29 @@ class ProfileActivity : AppCompatActivity() {
 
         }
 
+    }
+
+
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = mAuth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mRootRef.child(Constans.USER_DATABSE_PATH).child(mAuth.currentUser!!.uid).child("online").setValue("true")
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val currentUser = mAuth.getCurrentUser()
+        if (currentUser != null)
+        {
+            mRootRef.child(Constans.USER_DATABSE_PATH).child(mAuth.currentUser!!.uid).child("online").setValue(ServerValue.TIMESTAMP)
+        }
     }
 
 }
